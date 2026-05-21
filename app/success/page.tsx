@@ -1,39 +1,81 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import {
+  Suspense,
+} from "react";
 
-export default function SuccessPage() {
+import {
+  useSearchParams,
+} from "next/navigation";
 
-  const params =
+function SuccessContent() {
+
+  const searchParams =
     useSearchParams();
 
   const token =
-    params.get("token");
+    searchParams.get(
+      "token"
+    );
 
   return (
 
     <main className="min-h-screen flex items-center justify-center px-6">
 
-      <div className="glass rounded-3xl p-10 text-center max-w-xl w-full">
+      <div className="glass rounded-3xl p-10 max-w-xl w-full text-center">
 
         <h1 className="text-5xl font-black gold-text">
           Booking Successful
         </h1>
 
-        <p className="mt-6 text-gray-300">
-          Your registration has been submitted.
+        <p className="mt-6 text-xl">
+          Your booking token:
         </p>
 
-        <div className="mt-10 text-4xl font-black gold-text">
+        <div className="mt-5 text-4xl font-black text-yellow-400">
+
           {token}
+
         </div>
 
-        <p className="mt-5 text-yellow-400">
-          Payment Verification Pending
+        <p className="mt-8 text-gray-400">
+
+          Please save your token ID for future verification.
+
         </p>
+
+        <a
+          href="/"
+          className="gold-btn inline-block mt-10 px-8 py-4 rounded-2xl font-black"
+        >
+          Back to Home
+        </a>
 
       </div>
 
     </main>
+  );
+}
+
+export default function SuccessPage() {
+
+  return (
+
+    <Suspense
+      fallback={
+
+        <main className="min-h-screen flex items-center justify-center">
+
+          <h1 className="text-4xl gold-text font-black">
+            Loading...
+          </h1>
+
+        </main>
+      }
+    >
+
+      <SuccessContent />
+
+    </Suspense>
   );
 }
