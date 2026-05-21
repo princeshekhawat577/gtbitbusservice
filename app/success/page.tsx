@@ -1,7 +1,4 @@
-export const dynamic =
-  "force-dynamic";
-
-  "use client";
+"use client";
 
 import {
   Suspense,
